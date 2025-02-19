@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest && npm run test:build",
+    "test": "npm run lint && jest && npm run test:build",
     "test:watch": "jest --watch",
     "test:build": "next build"
   },

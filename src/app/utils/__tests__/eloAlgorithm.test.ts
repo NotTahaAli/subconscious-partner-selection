@@ -57,7 +57,7 @@ describe('ELO Algorithm', () => {
       description: "Drive for success"
     };
 
-    const [updatedWinners, updatedLosers] = updateTraitScores(
+    const [updatedWinners] = updateTraitScores(
       [trait1, trait3],
       [trait2]
     );
