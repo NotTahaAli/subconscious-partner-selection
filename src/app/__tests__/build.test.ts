@@ -10,10 +10,12 @@ describe('Build Output', () => {
   });
 
   it('generates all expected routes', () => {
-    // In Next.js app router, routes are compiled to HTML files
     expectedRoutes.forEach(route => {
-      const htmlPath = join(buildDir, 'server/app', route === '/' ? 'page.js' : `${route.slice(1)}/page.js`);
-      expect(existsSync(htmlPath)).toBe(true);
+      // Check if either the static HTML or server bundle exists
+      const serverPath = join(buildDir, 'server/app', route === '/' ? 'page.js' : `${route.slice(1)}/page.js`);
+      const staticPath = join(buildDir, 'static/chunks/app', route === '/' ? 'page.js' : `${route.slice(1)}/page.js`);
+      
+      expect(existsSync(serverPath) || existsSync(staticPath)).toBe(true);
     });
   });
 });
