@@ -23,19 +23,19 @@ export default function PersonalityCard({
         : 'border-foreground/10 hover:border-foreground/30'
       }
     `}>
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
+      <h2 className="text-xl font-semibold mb-4">Meet {title}</h2>
       
       <div className="prose prose-gray mb-6">
         <p className="text-gray-600">{description}</p>
       </div>
 
       <div className="space-y-3 mb-6">
-        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Key Traits</h3>
+        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">What Makes Them Special</h3>
         {traits.map((trait) => (
           <div key={trait.name} className="flex items-center gap-2">
             <div className="w-1 h-1 rounded-full bg-foreground/60"></div>
-            <span className="font-medium">{trait.name}</span>
-            <span className="text-sm text-gray-500 ml-auto">{trait.description}</span>
+            <span className="font-medium">{trait.name}:</span>
+            <span className="text-sm text-gray-500">{trait.description}</span>
           </div>
         ))}
       </div>
@@ -50,7 +50,7 @@ export default function PersonalityCard({
           }
         `}
       >
-        {isSelected ? 'Selected' : 'Select This Personality'}
+        {isSelected ? 'I Connect With Them' : 'Choose This Person'}
       </button>
     </div>
   );

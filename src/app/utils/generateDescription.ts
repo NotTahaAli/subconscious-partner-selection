@@ -8,13 +8,11 @@ export function generatePersonalityDescription(rankings: TraitRankings): string 
   const sortedTraits = sortTraitsByScore(rankings);
   
   if (sortedTraits.length === 0) {
-    return "No personality preferences have been recorded yet.";
+    return "You haven't shared any partner preferences yet.";
   }
 
   if (sortedTraits.length === 1) {
-    return `Based on your preferences, you are primarily drawn to individuals who embody ${sortedTraits[0].name.toLowerCase()}. 
-    
-Specifically, you value ${sortedTraits[0].description.toLowerCase()}.`;
+    return `You're most drawn to people who ${sortedTraits[0].description.toLowerCase()}. This suggests you value authentic connections where your partner ${sortedTraits[0].name.toLowerCase() === sortedTraits[0].name ? 'shows ' + sortedTraits[0].name.toLowerCase() : 'is ' + sortedTraits[0].name.toLowerCase()}.`;
   }
 
   const topTraits = sortedTraits.slice(0, Math.min(3, sortedTraits.length));
@@ -23,17 +21,17 @@ Specifically, you value ${sortedTraits[0].description.toLowerCase()}.`;
   let description = "";
   
   if (topTraits.length === 2) {
-    description = `Based on your preferences, you are drawn to individuals who embody ${topTraits[0].name.toLowerCase()} and ${topTraits[1].name.toLowerCase()}. 
+    description = `You're naturally drawn to people who combine ${topTraits[0].description.toLowerCase()} with ${topTraits[1].description.toLowerCase()}. 
 
-Specifically, you value ${topTraits[0].description.toLowerCase()} as a primary characteristic. This is complemented by ${topTraits[1].description.toLowerCase()}.`;
+Your ideal partner would be someone who ${topTraits[0].description.toLowerCase()}, while also having the capacity to ${topTraits[1].description.toLowerCase()}.`;
   } else {
-    description = `Based on your preferences, you are drawn to individuals who embody ${topTraits[0].name.toLowerCase()}, ${topTraits[1].name.toLowerCase()}, and ${topTraits[2].name.toLowerCase()}. 
+    description = `You tend to form the strongest connections with people who embody a blend of qualities: ${topTraits[0].description.toLowerCase()}, ${topTraits[1].description.toLowerCase()}, and ${topTraits[2].description.toLowerCase()}. 
 
-Specifically, you value ${topTraits[0].description.toLowerCase()} as a primary characteristic. This is complemented by a strong appreciation for ${topTraits[1].description.toLowerCase()}.`;
+In a partner, you particularly value someone who ${topTraits[0].description.toLowerCase()}. This core quality is beautifully complemented when they also ${topTraits[1].description.toLowerCase()}.`;
   }
 
   if (lowerTraits.length > 0) {
-    description += `\n\nWhile you also consider ${lowerTraits[0].name.toLowerCase()}${lowerTraits.length > 1 ? ` and ${lowerTraits[1].name.toLowerCase()}` : ''}, ${lowerTraits.length > 1 ? 'these traits appear' : 'this trait appears'} to be secondary in your subconscious preferences.`;
+    description += `\n\nWhile you appreciate when someone ${lowerTraits[0].description.toLowerCase()}${lowerTraits.length > 1 ? ` and ${lowerTraits[1].description.toLowerCase()}` : ''}, ${lowerTraits.length > 1 ? 'these qualities appear' : 'this quality appears'} to be less crucial in your deepest connections.`;
   }
 
   return description;

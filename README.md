@@ -1,182 +1,63 @@
 # Subconscious Partner Selection
 
-A Next.js application that helps users understand their subconscious partner preferences through AI-generated personality comparisons.
+A thoughtful tool designed to help you understand your deeper preferences in potential life partners. Rather than using rigid questionnaires or superficial criteria, this application uses AI-guided personality comparisons to reveal what truly resonates with you in meaningful relationships.
+
+## About
+
+This project takes a uniquely human approach to understanding relationship preferences. Instead of treating personalities as abstract concepts, it presents potential partners as real people with authentic qualities and characteristics. Through a series of thoughtful comparisons, you'll discover patterns in the types of people you naturally connect with most deeply.
 
 ## Features
 
-- 🧠 AI-generated personality descriptions
-- 🔄 Side-by-side personality comparisons
-- 📊 ELO-based trait ranking system
-- 📱 Responsive design for all devices
-- 🔑 LLM API integration (configurable)
-- 📈 Visual trait preference tracking
+- **Natural Comparisons**: Meet and compare different personalities in a way that feels like genuine human interaction
+- **Personalized Insights**: Gain deep understanding of your relationship preferences through AI-generated insights
+- **Meaningful Traits**: Focus on qualities that matter in real relationships, not just personality categories
+- **Privacy-First**: Your preferences are stored locally in your browser
+- **Adaptive Learning**: Uses the ELO algorithm to continuously refine understanding of your preferences
 
 ## Getting Started
 
-### Prerequisites
+1. **Installation**
+   ```bash
+   git clone [repository-url]
+   cd subconscious-partner-selection
+   npm install
+   ```
 
-- Node.js 18+ and npm
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/NotTahaAli/subconscious-partner-selection.git
-cd subconscious-partner-selection
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Set up your environment variables:
+2. **Environment Setup**
    - Copy `.env.local.example` to `.env.local`
-   - Update the values as needed
+   - Add your LLM API key in the settings page after running the application
 
-4. Run the development server:
-```bash
-npm run dev
-```
+3. **Running the Application**
+   ```bash
+   npm run dev
+   ```
+   Visit `http://localhost:3000` to start your journey
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+## How It Works
 
-### Testing
+1. **Start Your Journey**: Begin by comparing two potential partners, each presented as a real person with unique qualities
+2. **Make Connections**: Choose the personality you connect with more naturally
+3. **Discover Patterns**: As you make more comparisons, the application reveals deeper insights about your relationship preferences
+4. **Gain Understanding**: Review your evolving preferences and AI-generated insights about what you value in potential partners
 
-The project includes comprehensive testing:
+## Technology
 
-```bash
-# Run all tests (unit tests + build verification)
-npm test
-
-# Run tests in watch mode during development
-npm run test:watch
-
-# Run only build verification
-npm run test:build
-```
-
-### Production
-
-Build and start the production server:
-```bash
-npm run build
-npm start
-```
-
-## Architecture
-
-### Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router files
-│   ├── components/        # Reusable React components
-│   ├── utils/            # Utility functions and helpers
-│   │   ├── generateDescription.ts  # Personality description generator
-│   │   └── eloAlgorithm.ts        # ELO ranking implementation
-│   ├── types/            # TypeScript type definitions
-│   ├── layout.tsx        # Root layout with header/footer
-│   ├── page.tsx          # Home page with trait rankings
-│   ├── compare/          # Personality comparison feature
-│   └── settings/         # API configuration page
-└── __tests__/           # Test suites
-```
-
-### Key Components
-
-#### PersonalityCard
-Displays an individual personality description with traits and selection controls.
-
-Props:
-```typescript
-interface PersonalityCardProps {
-  title: string;
-  description: string;
-  traits: PersonalityTrait[];
-  onSelect: () => void;
-  isSelected?: boolean;
-}
-```
-
-#### TraitRankings
-Visualizes current trait preferences with AI-generated insights.
-
-Props:
-```typescript
-interface TraitRankingsProps {
-  rankings: TraitRankings;
-}
-```
-
-### Type Definitions
-
-```typescript
-interface PersonalityTrait {
-  name: string;
-  score: number;
-  description: string;
-}
-
-interface TraitRankings {
-  traits: PersonalityTrait[];
-  totalComparisons: number;
-}
-```
-
-## Testing
-
-The project uses Jest and React Testing Library. Tests are co-located with their components:
-
-- `src/app/components/__tests__/`: Component unit tests
-- `src/app/__tests__/build.test.ts`: Build and routing tests
-
-## Technical Details
-
-### Styling
-- Tailwind CSS for utility-first styling
-- Mobile-first responsive design
-- Dark/light mode support via CSS variables
-- Consistent UI components with hover/active states
-
-### State Management
-- React hooks for local state
-- Browser's localStorage for persistence
-- Potential for server-side storage via API routes
-
-### API Integration
-- Multiple LLM provider support (Currently active: Google Gemini)
-  - Google Gemini (API key format: `AI` followed by 35+ characters)
-  - OpenAI (Coming soon - API key format: `sk-` followed by 48 characters)
-  - Anthropic (Coming soon - API key format: `sk-ant-` followed by 32+ characters)
-  - Cohere (Coming soon - API key format: 40 character string)
-- Secure API key storage in browser's localStorage
-- Provider selection in Settings (non-active providers are disabled)
-- Fallback personality generation when API is unavailable
-
-### Settings Page
-The settings page (`/settings`) allows users to:
-- Select their preferred LLM provider
-- Enter and validate their API key
-- Securely store configuration in browser's localStorage
-- Update provider/key combination at any time
-
-All API keys are validated for proper format before being saved. The application will display appropriate error messages if an invalid key format is detected.
+- Next.js 14+ with App Router
+- TypeScript for type safety
+- Tailwind CSS for styling
+- ELO algorithm for preference ranking
+- Large Language Model integration for personality generation
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
+We welcome contributions that enhance the human-centric approach of this project. Please feel free to submit issues and pull requests.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
-- Next.js team for the amazing framework
-- Tailwind CSS for the utility-first CSS framework
-- Testing Library team for the testing utilities
+- Built with care and empathy by Muhammad Taha Ali
+- Uses advanced AI to generate authentic personality descriptions
+- Inspired by the complexity and beauty of human connections

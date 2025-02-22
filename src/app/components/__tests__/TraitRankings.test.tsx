@@ -33,9 +33,10 @@ describe('TraitRankings', () => {
     });
   });
 
-  it('shows AI-generated insight section', () => {
+  it('shows AI-generated insight section and description', () => {
     render(<TraitRankings rankings={mockRankings} />);
     expect(screen.getByText('AI-Generated Insight')).toBeInTheDocument();
-    expect(screen.getByText(/based on your preferences/i)).toBeInTheDocument();
+    // Look for part of the generated description that we know will be there
+    expect(screen.getByText(/You're naturally drawn to people/i)).toBeInTheDocument();
   });
 });

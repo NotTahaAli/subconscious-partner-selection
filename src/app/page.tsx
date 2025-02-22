@@ -8,27 +8,27 @@ const mockRankings = {
     {
       name: "Empathy",
       score: 2100,
-      description: "Ability to understand and share others' feelings"
+      description: "connects deeply with others&apos; emotions"
     },
     {
       name: "Ambition",
       score: 1800,
-      description: "Drive and determination to achieve goals"
+      description: "pursues goals with passion and purpose"
     },
     {
       name: "Humor",
       score: 2400,
-      description: "Ability to make others laugh and find joy in life"
+      description: "brings joy and lightness to shared moments"
     },
     {
       name: "Intelligence",
       score: 2200,
-      description: "Capacity for learning, understanding, and problem-solving"
+      description: "engages in meaningful intellectual exchanges"
     },
     {
       name: "Reliability",
       score: 1950,
-      description: "Consistency and dependability in actions and commitments"
+      description: "shows up consistently in relationships"
     }
   ]
 };
@@ -38,18 +38,18 @@ export default function Home() {
     <div className="max-w-4xl mx-auto space-y-12">
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-6">
-          Discover Your Partner Preferences
+          Understand Your Heart&apos;s Choice
         </h1>
         <p className="text-lg mb-8">
-          Through a series of comparisons, this tool helps you understand your
-          subconscious preferences in potential partners using AI-generated
-          personality descriptions.
+          Discover the deeper patterns in your relationship preferences through a series of 
+          thoughtful comparisons. Our AI-guided process helps you understand what truly 
+          resonates with you in potential partners.
         </p>
         <Link
           href="/compare"
           className="inline-block bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
         >
-          Start Comparing
+          Start Your Journey
         </Link>
       </div>
       
