@@ -1,39 +1,59 @@
+'use client';
+
 import TraitRankings from './components/TraitRankings';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { STANDARD_TRAITS } from './types/standardTraits';
 
-// Mock data - in a real implementation this would come from local storage or an API
-const mockRankings = {
-  totalComparisons: 25,
-  traits: [
-    {
-      name: "Empathy",
-      score: 2100,
-      description: "connects deeply with others&apos; emotions"
-    },
-    {
-      name: "Ambition",
-      score: 1800,
-      description: "pursues goals with passion and purpose"
-    },
-    {
-      name: "Humor",
-      score: 2400,
-      description: "brings joy and lightness to shared moments"
-    },
-    {
-      name: "Intelligence",
-      score: 2200,
-      description: "engages in meaningful intellectual exchanges"
-    },
-    {
-      name: "Reliability",
-      score: 1950,
-      description: "shows up consistently in relationships"
-    }
-  ]
-};
+interface Settings {
+  apiKey: string;
+  llmProvider: string;
+}
+
+function getInitialTraitScores() {
+  const storedScores = localStorage.getItem('traitScores');
+  if (storedScores) {
+    return JSON.parse(storedScores);
+  }
+
+  // Initialize with default scores for all standard traits
+  const defaultScores = STANDARD_TRAITS.reduce((acc, trait) => {
+    acc[trait.name] = 1500;
+    return acc;
+  }, {} as Record<string, number>);
+
+  localStorage.setItem('traitScores', JSON.stringify(defaultScores));
+  return defaultScores;
+}
 
 export default function Home() {
+  const [settings, setSettings] = useState<Settings | null>(null);
+  const [traitScores, setTraitScores] = useState<Record<string, number>>({});
+  const [totalComparisons, setTotalComparisons] = useState(0);
+
+  useEffect(() => {
+    // Load settings
+    const storedSettings = localStorage.getItem('llmSettings');
+    if (storedSettings) {
+      setSettings(JSON.parse(storedSettings));
+    }
+
+    // Load trait scores and comparison count
+    const scores = getInitialTraitScores();
+    const comparisons = parseInt(localStorage.getItem('totalComparisons') || '0', 10);
+    setTraitScores(scores);
+    setTotalComparisons(comparisons);
+  }, []);
+
+  const rankings = {
+    totalComparisons,
+    traits: STANDARD_TRAITS.map(trait => ({
+      name: trait.name,
+      description: trait.description,
+      score: traitScores[trait.name] || 1500
+    })).sort((a, b) => b.score - a.score)
+  };
+
   return (
     <div className="max-w-4xl mx-auto space-y-12">
       <div className="text-center">
@@ -45,15 +65,35 @@ export default function Home() {
           thoughtful comparisons. Our AI-guided process helps you understand what truly 
           resonates with you in potential partners.
         </p>
-        <Link
-          href="/compare"
-          className="inline-block bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
-        >
-          Start Your Journey
-        </Link>
+        {!settings?.apiKey ? (
+          <div className="space-y-4">
+            <p className="text-amber-600">
+              To start generating unique personality comparisons, please configure your LLM API key.
+            </p>
+            <Link
+              href="/settings"
+              className="inline-block bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+            >
+              Configure Settings
+            </Link>
+          </div>
+        ) : (
+          <Link
+            href="/compare"
+            className="inline-block bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+          >
+            Start Your Journey
+          </Link>
+        )}
       </div>
       
-      <TraitRankings rankings={mockRankings} />
+      {totalComparisons > 0 ? (
+        <TraitRankings rankings={rankings} />
+      ) : (
+        <div className="text-center text-gray-500">
+          <p>Complete your first comparison to see your trait preferences.</p>
+        </div>
+      )}
     </div>
   );
 }

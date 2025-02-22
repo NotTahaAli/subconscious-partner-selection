@@ -22,6 +22,20 @@ function calculateExpectedScore(traitScore: number, opposingScore: number): numb
 }
 
 /**
+ * Calculate Elo rating changes for a single pair of scores
+ */
+export function updateEloRatings(winnerScore: number, loserScore: number): { winner: number; loser: number } {
+  const expectedWinnerScore = calculateExpectedScore(winnerScore, loserScore);
+  let scoreChange = Math.round(K_FACTOR * (1 - expectedWinnerScore));
+  scoreChange = Math.min(scoreChange, MAX_SCORE_CHANGE);
+
+  return {
+    winner: winnerScore + scoreChange,
+    loser: loserScore - scoreChange
+  };
+}
+
+/**
  * Update trait scores using the ELO rating system
  * @param winningTraits Traits from the winning personality
  * @param losingTraits Traits from the losing personality
