@@ -41,7 +41,7 @@ describe('generatePersonalities', () => {
 
     const result = await generatePersonalityPair(mockApiKey, 'gemini');
 
-    expect(GeminiClient).toHaveBeenCalledWith({ apiKey: mockApiKey, model: 'gemini-pro' });
+    expect(GeminiClient).toHaveBeenCalledWith({ apiKey: mockApiKey, model: 'gemini-2.0-flash' });
     expect(result.a.title).toBe('Alex');
     expect(result.b.title).toBe('Jordan');
     expect(result.a.traits).toHaveLength(3);

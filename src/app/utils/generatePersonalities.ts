@@ -51,7 +51,7 @@ export async function generatePersonalityPair(
   }
 
   try {
-    const client = new GeminiClient({ apiKey, model: 'gemini-pro' });
+    const client = new GeminiClient({ apiKey, model: 'gemini-2.0-flash' });
     
     // Generate first personality
     const resultA = await client.generatePersonalityDescription();

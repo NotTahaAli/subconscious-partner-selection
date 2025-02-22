@@ -13,7 +13,7 @@ export class GeminiClient {
 
   constructor(config: GeminiConfig) {
     this.client = new GoogleGenerativeAI(config.apiKey);
-    this.model = config.model || 'gemini-pro';
+    this.model = config.model || 'gemini-2.0-flash';
   }
 
   async generatePersonalityDescription(): Promise<{title: string; description: string; traits: string[]}> {

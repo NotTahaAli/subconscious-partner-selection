@@ -44,7 +44,7 @@ describe('GeminiClient', () => {
     const result = await client.generatePersonalityDescription();
 
     expect(result).toEqual(mockResponse);
-    expect(mockGetModel).toHaveBeenCalledWith({ model: 'gemini-pro' });
+    expect(mockGetModel).toHaveBeenCalledWith({ model: 'gemini-2.0-flash' });
     expect(mockGenerateContent).toHaveBeenCalled();
   });
 
