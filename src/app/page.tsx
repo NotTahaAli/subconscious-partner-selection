@@ -13,7 +13,18 @@ interface Settings {
 function getInitialTraitScores() {
   const storedScores = localStorage.getItem('traitScores');
   if (storedScores) {
-    return JSON.parse(storedScores);
+    const scores = JSON.parse(storedScores);
+    for (const trait of STANDARD_TRAITS) {
+      if (!(trait.name in scores)) {
+        scores[trait.name] = 1500;
+      }
+    }
+    for (const trait in scores) {
+      if (!STANDARD_TRAITS.find(t => t.name === trait)) {
+        delete scores[trait];
+      }
+    }
+    return scores;
   }
 
   // Initialize with default scores for all standard traits
