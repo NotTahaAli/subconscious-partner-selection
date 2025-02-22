@@ -24,6 +24,7 @@ function getInitialTraitScores() {
         delete scores[trait];
       }
     }
+    localStorage.setItem('traitScores', JSON.stringify(scores));
     return scores;
   }
 
