@@ -1,23 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { LLM_PROVIDERS, API_KEY_PATTERNS, LLMProvider } from '../types/llm';
 
 interface Settings {
   apiKey: string;
   llmProvider: string;
 }
 
-const LLM_PROVIDERS = [
-  { id: 'openai', name: 'OpenAI' },
-  { id: 'anthropic', name: 'Anthropic' },
-  { id: 'cohere', name: 'Cohere' },
-  { id: 'gemini', name: 'Google Gemini' },
-];
-
 export default function SettingsPage() {
   const [settings, setSettings] = useState<Settings>({
     apiKey: '',
-    llmProvider: 'openai',
+    llmProvider: 'gemini', // Changed default to Gemini since others are disabled
   });
   const [isSaved, setIsSaved] = useState(false);
   const [error, setError] = useState<string>('');
@@ -36,15 +30,7 @@ export default function SettingsPage() {
       return false;
     }
 
-    // Basic validation patterns for different providers
-    const patterns = {
-      openai: /^sk-[a-zA-Z0-9]{48}$/,
-      anthropic: /^sk-ant-[a-zA-Z0-9]{32,}$/,
-      cohere: /^[a-zA-Z0-9]{40}$/,
-      gemini: /^AI[a-zA-Z0-9_-]{35,}$/,
-    };
-
-    if (!patterns[provider as keyof typeof patterns].test(key)) {
+    if (!API_KEY_PATTERNS[provider].test(key)) {
       setError(`Invalid ${LLM_PROVIDERS.find(p => p.id === provider)?.name} API key format`);
       return false;
     }
@@ -79,9 +65,13 @@ export default function SettingsPage() {
               onChange={(e) => setSettings({ ...settings, llmProvider: e.target.value })}
               className="w-full px-3 py-2 border border-foreground/20 rounded-md bg-background"
             >
-              {LLM_PROVIDERS.map((provider) => (
-                <option key={provider.id} value={provider.id}>
-                  {provider.name}
+              {LLM_PROVIDERS.map((provider: LLMProvider) => (
+                <option 
+                  key={provider.id} 
+                  value={provider.id}
+                  disabled={provider.disabled}
+                >
+                  {provider.name}{provider.disabled ? ' (Coming Soon)' : ''}
                 </option>
               ))}
             </select>

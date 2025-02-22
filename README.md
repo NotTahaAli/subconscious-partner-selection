@@ -145,13 +145,13 @@ The project uses Jest and React Testing Library. Tests are co-located with their
 - Potential for server-side storage via API routes
 
 ### API Integration
-- Multiple LLM provider support:
-  - OpenAI (API key format: `sk-` followed by 48 characters)
-  - Anthropic (API key format: `sk-ant-` followed by 32+ characters)
-  - Cohere (API key format: 40 character string)
+- Multiple LLM provider support (Currently active: Google Gemini)
   - Google Gemini (API key format: `AI` followed by 35+ characters)
+  - OpenAI (Coming soon - API key format: `sk-` followed by 48 characters)
+  - Anthropic (Coming soon - API key format: `sk-ant-` followed by 32+ characters)
+  - Cohere (Coming soon - API key format: 40 character string)
 - Secure API key storage in browser's localStorage
-- Configurable provider selection in Settings
+- Provider selection in Settings (non-active providers are disabled)
 - Fallback personality generation when API is unavailable
 
 ### Settings Page
