@@ -168,7 +168,7 @@ export default function ComparePage() {
           >
             Compare New Pair
           </button>
-          <p className="text-sm text-gray-500">Your trait preferences have been updated!</p>
+          <p className="text-sm text-gray-300">Your trait preferences have been updated!</p>
         </div>
       )}
     </div>

@@ -26,16 +26,16 @@ export default function PersonalityCard({
       <h2 className="text-xl font-semibold mb-4">Meet {title}</h2>
       
       <div className="prose prose-gray mb-6">
-        <p className="text-gray-600">{description}</p>
+        <p className="text-gray-400">{description}</p>
       </div>
 
       <div className="space-y-3 mb-6">
-        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">What Makes Them Special</h3>
+        <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">What Makes Them Special</h3>
         {traits.map((trait) => (
           <div key={trait.name} className="flex items-center gap-2">
             <div className="w-1 h-1 rounded-full bg-foreground/60"></div>
             <span className="font-medium">{trait.name}:</span>
-            <span className="text-sm text-gray-500">{trait.description}</span>
+            <span className="text-sm text-gray-300">{trait.description}</span>
           </div>
         ))}
       </div>

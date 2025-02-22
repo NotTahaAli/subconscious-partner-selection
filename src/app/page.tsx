@@ -102,7 +102,7 @@ export default function Home() {
       {totalComparisons > 0 ? (
         <TraitRankings rankings={rankings} />
       ) : (
-        <div className="text-center text-gray-500">
+        <div className="text-center text-gray-300">
           <p>Complete your first comparison to see your trait preferences.</p>
         </div>
       )}

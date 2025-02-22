@@ -89,7 +89,7 @@ export default function SettingsPage() {
               className="w-full px-3 py-2 border border-foreground/20 rounded-md bg-background"
               placeholder={`Enter your ${LLM_PROVIDERS.find(p => p.id === settings.llmProvider)?.name} API key`}
             />
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-300">
               Your API key is stored securely in your browser&apos;s local storage.
             </p>
             {error && (
