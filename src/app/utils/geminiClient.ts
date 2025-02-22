@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { STANDARD_TRAITS } from '../types/standardTraits';
+import { shuffleArray } from './shuffle';
 
 interface GeminiConfig {
   apiKey: string;
@@ -16,7 +17,9 @@ export class GeminiClient {
   }
 
   async generatePersonalityDescription(): Promise<{title: string; description: string; traits: string[]}> {
-    const availableTraits = STANDARD_TRAITS.map(t => `${t.name}: ${t.description}`).join('\n');
+    const traitsArr = STANDARD_TRAITS.slice(0);
+    shuffleArray(traitsArr);
+    const availableTraits = traitsArr.map(t => `${t.name}: ${t.description}`).join('\n');
     const prompt = `Generate a unique fictional personality profile for a potential romantic partner. Include:
     1. A gender-neutral name
     2. A 2-3 sentence description of their personality that reflects their key traits
