@@ -23,11 +23,7 @@ This project takes a uniquely human approach to understanding relationship prefe
    npm install
    ```
 
-2. **Environment Setup**
-   - Copy `.env.local.example` to `.env.local`
-   - Add your LLM API key in the settings page after running the application
-
-3. **Running the Application**
+2. **Running the Application**
    ```bash
    npm run dev
    ```
@@ -58,6 +54,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Built with care and empathy by Muhammad Taha Ali
+- Built with care and empathy by Muhammad Taha Ali (That's my AI Agent not Me)
 - Uses advanced AI to generate authentic personality descriptions
 - Inspired by the complexity and beauty of human connections
