@@ -24,13 +24,20 @@ This project takes a uniquely human approach to understanding relationship prefe
    npm install
    ```
 
-2. **Running the Application**
+2. **Environment Setup**
+   Copy the example environment file to create your local environment:
+   ```bash
+   cp .env.local.example .env.local
+   ```
+   Then edit `.env.local` to add your Gemini API key (obtain one from [Google AI Studio](https://makersuite.google.com/app/apikey))
+
+3. **Running the Application**
    ```bash
    npm run dev
    ```
    Visit `http://localhost:3000` to start your journey
 
-3. **API Configuration**
+4. **API Configuration**
    - Navigate to the Settings page
    - Enter your Gemini API key (obtain one from [Google AI Studio](https://makersuite.google.com/app/apikey))
    - Select "gemini" as your LLM provider
@@ -64,6 +71,18 @@ This will:
 1. Run ESLint to check code quality
 2. Build the project to verify compilation
 3. Execute Jest tests with coverage reports
+
+To run tests in watch mode during development:
+```bash
+npm run test:watch
+```
+
+## Deployment
+This project is set up for easy deployment on Vercel:
+```bash
+npm run build
+```
+You can then deploy to your preferred hosting service. For Vercel, simply connect your GitHub repository and it will automatically build and deploy your application.
 
 ## Contributing
 
