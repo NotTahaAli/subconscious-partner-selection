@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { STANDARD_TRAITS } from '../types/standardTraits';
 import { shuffleArray } from './shuffle';
+import { TraitRankings } from '../types/personality';
 
 interface GeminiConfig {
   apiKey: string;
@@ -64,6 +65,47 @@ export class GeminiClient {
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(`Gemini API error: ${error.message}`);
+      }
+      throw error;
+    }
+  }
+
+  async generatePersonalityInsight(rankings: TraitRankings): Promise<string> {
+    if (!rankings.traits.length) {
+      return "You haven't shared any partner preferences yet.";
+    }
+
+    // Sort traits by score (highest to lowest)
+    const sortedTraits = [...rankings.traits].sort((a, b) => b.score - a.score);
+    
+    // Create a list of traits with their scores and descriptions
+    const traitsWithScores = sortedTraits.map(t => 
+      `${t.name} (${t.score}): ${t.description}`
+    ).join('\n');
+    
+    const prompt = `Based on the following personality trait preferences ranked by ELO score (higher score = more preferred), 
+    create an insightful analysis of the user's romantic preferences. The user has completed ${rankings.totalComparisons} comparison(s).
+    
+    TRAIT PREFERENCES (sorted by preference score):
+    ${traitsWithScores}
+    
+    Provide a thoughtful, 2-3 paragraph analysis that:
+    1. Discusses patterns in their top 3-4 traits and what these reveal about their romantic preferences
+    2. Identifies potential complementary traits or personalities
+    3. Offers insight into what might make relationships satisfying for them based on these preferences
+    
+    Write in second person ("you"). Be concise but meaningful. Focus on genuine psychological insights rather than generic statements.`;
+
+    try {
+      const model = this.client.getGenerativeModel({ model: this.model });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text().trim();
+      
+      return text;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to generate personality insight: ${error.message}`);
       }
       throw error;
     }

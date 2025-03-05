@@ -13,12 +13,13 @@ This project takes a uniquely human approach to understanding relationship prefe
 - **Meaningful Traits**: Focus on qualities that matter in real relationships, not just personality categories
 - **Privacy-First**: Your preferences are stored locally in your browser
 - **Adaptive Learning**: Uses the ELO algorithm to continuously refine understanding of your preferences
+- **AI Integration**: Supports Google's Gemini API for generating authentic personality descriptions and insights
 
 ## Getting Started
 
 1. **Installation**
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/NotTahaAli/subconscious-partner-selection.git
    cd subconscious-partner-selection
    npm install
    ```
@@ -29,6 +30,12 @@ This project takes a uniquely human approach to understanding relationship prefe
    ```
    Visit `http://localhost:3000` to start your journey
 
+3. **API Configuration**
+   - Navigate to the Settings page
+   - Enter your Gemini API key (obtain one from [Google AI Studio](https://makersuite.google.com/app/apikey))
+   - Select "gemini" as your LLM provider
+   - Your settings are stored locally in your browser
+
 ## How It Works
 
 1. **Start Your Journey**: Begin by comparing two potential partners, each presented as a real person with unique qualities
@@ -38,11 +45,25 @@ This project takes a uniquely human approach to understanding relationship prefe
 
 ## Technology
 
-- Next.js 14+ with App Router
+- Next.js 15+ with App Router
 - TypeScript for type safety
 - Tailwind CSS for styling
 - ELO algorithm for preference ranking
-- Large Language Model integration for personality generation
+- Google Gemini API integration for personality generation and insights
+- Jest and React Testing Library for comprehensive testing
+
+## Development
+
+### Testing
+Run the test suite with:
+```bash
+npm test
+```
+
+This will:
+1. Run ESLint to check code quality
+2. Build the project to verify compilation
+3. Execute Jest tests with coverage reports
 
 ## Contributing
 
@@ -54,6 +75,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Built with care and empathy by Muhammad Taha Ali (That's my AI Agent not Me)
-- Uses advanced AI to generate authentic personality descriptions
+- Uses Google Gemini API to generate authentic personality descriptions
 - Inspired by the complexity and beauty of human connections

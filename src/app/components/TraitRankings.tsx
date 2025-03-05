@@ -1,8 +1,43 @@
+import { useState, useEffect } from 'react';
 import { TraitRankings as TraitRankingsType } from '../types/personality';
-import { generatePersonalityDescription } from '../utils/generateDescription';
+import { generateStaticPersonalityDescription, generateAIPersonalityInsight } from '../utils/generateDescription';
 
-export default function TraitRankings({ rankings }: { rankings: TraitRankingsType }) {
-  const personalityDescription = generatePersonalityDescription(rankings);
+interface TraitRankingsProps {
+  rankings: TraitRankingsType;
+  apiKey?: string;
+  llmProvider?: string;
+}
+
+export default function TraitRankings({ rankings, apiKey, llmProvider }: TraitRankingsProps) {
+  const [personalityDescription, setPersonalityDescription] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  
+  useEffect(() => {
+    async function fetchInsight() {
+      setIsLoading(true);
+      try {
+        // If API key and provider are available, generate AI insight
+        if (apiKey && llmProvider) {
+          const insight = await generateAIPersonalityInsight(rankings, apiKey, llmProvider);
+          setPersonalityDescription(insight);
+        } else {
+          // Fall back to static description
+          setPersonalityDescription(generateStaticPersonalityDescription(rankings));
+        }
+      } catch (error) {
+        console.error('Failed to generate insight:', error);
+        setPersonalityDescription(generateStaticPersonalityDescription(rankings));
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    fetchInsight();
+  }, [rankings, apiKey, llmProvider]);
+
+  // Ensure personalityDescription is a string
+  const descriptionText = typeof personalityDescription === 'string' ? personalityDescription : '';
+  const paragraphs = descriptionText.split('\n\n');
 
   return (
     <div className="space-y-8">
@@ -29,15 +64,30 @@ export default function TraitRankings({ rankings }: { rankings: TraitRankingsTyp
           ))}
         </div>
       </div>
-
       <div className="bg-background border border-foreground/10 rounded-lg p-6">
-        <h2 className="text-2xl font-semibold mb-4">AI-Generated Insight</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-semibold">AI-Generated Insight</h2>
+          {isLoading && (
+            <div className="text-sm text-gray-300">
+              Generating insight...
+            </div>
+          )}
+        </div>
         <div className="prose prose-gray">
-          {personalityDescription.split('\n\n').map((paragraph, index) => (
-            <p key={index} className="mb-4 text-gray-400 last:mb-0">
-              {paragraph}
-            </p>
-          ))}
+          {isLoading ? (
+            <div data-testid="loading-animation" className="animate-pulse space-y-2">
+              <div className="h-4 bg-foreground/10 rounded w-3/4"></div>
+              <div className="h-4 bg-foreground/10 rounded"></div>
+              <div className="h-4 bg-foreground/10 rounded w-5/6"></div>
+              <div className="h-4 bg-foreground/10 rounded w-4/6"></div>
+            </div>
+          ) : (
+            paragraphs.map((paragraph, index) => (
+              <p key={index} className="mb-4 text-gray-400 last:mb-0">
+                {paragraph}
+              </p>
+            ))
+          )}
         </div>
       </div>
     </div>

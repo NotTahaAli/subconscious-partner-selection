@@ -100,7 +100,11 @@ export default function Home() {
       </div>
       
       {totalComparisons > 0 ? (
-        <TraitRankings rankings={rankings} />
+        <TraitRankings 
+          rankings={rankings} 
+          apiKey={settings?.apiKey} 
+          llmProvider={settings?.llmProvider} 
+        />
       ) : (
         <div className="text-center text-gray-300">
           <p>Complete your first comparison to see your trait preferences.</p>
