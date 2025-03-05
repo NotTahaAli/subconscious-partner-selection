@@ -21,7 +21,7 @@ describe('GeminiClient', () => {
   });
 
   it('initializes with provided API key and default model', () => {
-    new GeminiClient({ apiKey: mockApiKey });
+    new GeminiClient({ apiKey: mockApiKey, model: "gemini-2.0-flash"  });
     expect(GoogleGenerativeAI).toHaveBeenCalledWith(mockApiKey);
   });
 
@@ -40,7 +40,7 @@ describe('GeminiClient', () => {
       getGenerativeModel: mockGetModel
     }));
 
-    const client = new GeminiClient({ apiKey: mockApiKey });
+    const client = new GeminiClient({ apiKey: mockApiKey, model: "gemini-2.0-flash" });
     const result = await client.generatePersonalityDescription();
 
     expect(result).toEqual(mockResponse);
@@ -61,7 +61,7 @@ describe('GeminiClient', () => {
       })
     }));
 
-    const client = new GeminiClient({ apiKey: mockApiKey });
+    const client = new GeminiClient({ apiKey: mockApiKey, model: "gemini-2.0-flash" });
     await expect(client.generatePersonalityDescription())
       .rejects
       .toThrow('Gemini API error: Failed to parse or validate Gemini response');
@@ -77,7 +77,7 @@ describe('GeminiClient', () => {
       })
     }));
 
-    const client = new GeminiClient({ apiKey: mockApiKey });
+    const client = new GeminiClient({ apiKey: mockApiKey, model: "gemini-2.0-flash"  });
     await expect(client.generatePersonalityDescription())
       .rejects
       .toThrow('Gemini API error: API Error');
